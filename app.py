@@ -14,14 +14,6 @@ def index():
 
 
 def virtual_drag_drop():
-    cap = cv2.VideoCapture(0)
-
-    # Width
-    cap.set(3, 1280)
-
-    # Height
-    cap.set(4, 720)
-
     colorR = (255, 0, 255)
 
     cx, cy, w, h = 100, 100, 200, 200
@@ -46,7 +38,8 @@ def virtual_drag_drop():
         rectList.append(DragRect([x * 250 + 150, 150]))
 
     while True:
-        success, img = cap.read()
+        success, img = video_stream.read()  # Use the global video_stream
+
         img = cv2.flip(img, 1)
 
         allHands, img = detector.findHands(img)
