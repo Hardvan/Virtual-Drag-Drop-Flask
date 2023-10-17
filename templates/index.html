@@ -13,11 +13,11 @@
   </head>
 
   <body>
-    <h1>Webcam Face Detection</h1>
+    <h1>Virtual Drag and Drop</h1>
     <img
-      src="{{ url_for('video_feed') }}"
+      src="{{ url_for('drag_drop') }}"
       id="video-stream"
-      alt="Webcam Stream"
+      alt="Virtual Drag and Drop"
     />
 
     <script>
@@ -26,17 +26,8 @@
 
         if (video) {
           video.onloadedmetadata = function () {
-            faceCount.style.display = "block";
+            video.style.display = "block";
           };
-
-          navigator.mediaDevices
-            .getUserMedia({ video: true })
-            .then(function (stream) {
-              video.srcObject = stream;
-            })
-            .catch(function (error) {
-              console.error("Error accessing webcam:", error);
-            });
         }
       });
     </script>
