@@ -5,6 +5,10 @@ from HandTracking import HandDetector
 
 app = Flask(__name__)
 video_stream = cv2.VideoCapture(0)  # 0 for the default webcam
+# Width
+video_stream.set(3, 1280)
+# Height
+video_stream.set(4, 720)
 detector = HandDetector(detectionCon=0.8, maxHands=1)
 
 
@@ -39,6 +43,9 @@ def virtual_drag_drop():
 
     while True:
         success, img = video_stream.read()  # Use the global video_stream
+
+        if not success or img is None:
+            continue
 
         img = cv2.flip(img, 1)
 
