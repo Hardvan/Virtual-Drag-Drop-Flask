@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Virtual Drag Drop</title>
+
+    <!-- Custom CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/index.css') }}"
+    />
+  </head>
+
+  <body>
+    <h1>Webcam Face Detection</h1>
+    <img
+      src="{{ url_for('video_feed') }}"
+      id="video-stream"
+      alt="Webcam Stream"
+    />
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        let video = document.getElementById("video-stream");
+
+        if (video) {
+          video.onloadedmetadata = function () {
+            faceCount.style.display = "block";
+          };
+
+          navigator.mediaDevices
+            .getUserMedia({ video: true })
+            .then(function (stream) {
+              video.srcObject = stream;
+            })
+            .catch(function (error) {
+              console.error("Error accessing webcam:", error);
+            });
+        }
+      });
+    </script>
+
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+  </body>
+</html>
