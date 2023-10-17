@@ -14,21 +14,26 @@
 
   <body>
     <h1>Virtual Drag and Drop</h1>
-    <img
-      src="{{ url_for('drag_drop') }}"
-      id="video-stream"
-      alt="Virtual Drag and Drop"
-    />
+    <video id="video-stream" autoplay playsinline></video>
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         let video = document.getElementById("video-stream");
 
-        if (video) {
-          video.onloadedmetadata = function () {
-            video.style.display = "block";
-          };
+        if (navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices
+            .getUserMedia({ video: true })
+            .then(function (stream) {
+              video.srcObject = stream;
+            })
+            .catch(function (error) {
+              console.error("Error accessing webcam:", error);
+            });
         }
+
+        video.onloadedmetadata = function () {
+          video.style.display = "block";
+        };
       });
     </script>
 
